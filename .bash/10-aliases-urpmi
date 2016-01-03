@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Mageia urpmf aliases and functions to ease searching for packages
+if (`which urpmf >/dev/null 2>&1`); then
+  alias urpmf-seek='urpmf -i --uniq --summary'
+
+  function urpmf-scan {
+    urpmf -i  --uniq --description "$1"    | grep  '^[[:alnum:]].*:$' | sed s/\:// | sort
+  }
+fi
+
