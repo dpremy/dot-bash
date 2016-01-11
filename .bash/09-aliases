@@ -34,8 +34,9 @@ alias untar='tar -zxvf'
 
 # rsync
 if (`which rsync >/dev/null 2>&1`); then
-  alias rsync-copy='rsync -av --progress -h'
-  alias rsync-move='rsync -av --progress -h --remove-source-files'
+  alias rsync-copy='rsync -avzh --progress --stats'
+  alias rsync-move='rsync -avzh --progress --stats --remove-source-files'
+  alias rsync-mirror='rsync -avzh --progress --stats --delete-before --delete-excluded'
 fi
 
 # grep
