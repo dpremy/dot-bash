@@ -35,12 +35,14 @@ alias untar='tar -zxvf'
 # rsync
 if (`which rsync >/dev/null 2>&1`); then
   alias rsync-copy='rsync -avzh --progress --stats'
-  alias rsync-move='rsync -avzh --progress --stats --remove-source-files'
   alias rsync-mirror='rsync -avzh --progress --stats --delete-before --delete-excluded'
+  alias rsync-move='rsync -avzh --progress --stats --remove-source-files'
+  alias rsync-sychronize='rsync -avzuh --progress --stats --delete'
+  alias rsync-update='rsync -avzuh --progress --stats'
 fi
 
 # grep
-alias nocomment='grep -Ev '\''^( *)(#|$)'\''' # greps a file for lines without comments
+alias grep-nocomments='grep -Ev '\''^( *)(#|$)'\''' # greps a file for lines without comments
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
