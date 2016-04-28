@@ -2,10 +2,17 @@
 
 # Mageia urpmf aliases and functions to ease searching for packages
 if (`which urpmf >/dev/null 2>&1`); then
-  alias urpmf-seek='urpmf -i --uniq --summary'
+
+  SUDO=''
+  if [ $EUID -ne 0 ]; then
+      SUDO='sudo'
+  fi
+
+  function urpmf-seek {
+    $SUDO urpmf -i --uniq --summary "$1" | sort
+  }
 
   function urpmf-scan {
-    urpmf -i  --uniq --description "$1"    | grep  '^[[:alnum:]].*:$' | sed s/\:// | sort
+    $SUDO urpmf -i --uniq --description "$1" | grep  '^[[:alnum:]].*:$' | sed s/\:// | sort
   }
 fi
-
