@@ -13,9 +13,6 @@ alias sl=ls
 alias ..='cd ..'
 alias cd..='cd ..'
 
-# prompt if deleting more than 3 files at a time
-alias rm='rm -I --preserve-root'
-
 # confirmation on mass file changes
 alias mv='mv -i'
 alias cp='cp -i'
