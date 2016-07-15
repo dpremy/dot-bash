@@ -52,7 +52,7 @@ if (`which rsync >/dev/null 2>&1`); then
 fi
 
 # grep
-alias grep-nocomments='grep -Ev '\''^( *)(#|$)'\''' # greps a file for lines without comments
+alias grep-nocomments='grep -Ev '\''^( *)(#|$|;)'\''' # greps a file for lines without comments
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
