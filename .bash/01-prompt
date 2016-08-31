@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # bash prompt configuration
 BASH_PS1="\e[01;32m\u\e[01;34m@\e[01;36m\h \e[01;33m(bash) \e[01;33m\w \e[00;32m\t\e[00m\\n\\$ "
 
