@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [ -e ~/.files/bin ]; then
+   export PATH=~/.files/bin:$PATH
+fi

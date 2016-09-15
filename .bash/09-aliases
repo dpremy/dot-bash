@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # set default variables
   TTY_COLOR=''
   GNU_TTY_COLOR=''

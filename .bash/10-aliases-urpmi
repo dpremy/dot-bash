@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Mageia urpmf aliases and functions to ease searching for packages
 if (`which urpmf >/dev/null 2>&1`); then
 
