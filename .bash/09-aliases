@@ -43,6 +43,10 @@
   alias chmod=$GNU'chmod'$GNU_PRESERVE
   alias chgrp=$GNU'chgrp'$GNU_PRESERVE
 
+# ssh
+  # alias ssh to change the term to xterm before the session starts
+  alias ssh="TERM=xterm ssh"
+
 # mount
   alias mount='mount |column -t'
 
