@@ -34,7 +34,7 @@
   alias cd..='cd ..'
 
 # confirmation on mass file changes
-  alias mv$GNU='mv'$GNU_i
+  alias mv=$GNU'mv'$GNU_i
   alias cp=$GNU'cp'$GNU_i
   alias ln=$GNU'ln'$GNU_i
 
