@@ -1,47 +1,80 @@
 #!/usr/bin/env bash
 
+# advice on using which, whence, and other shell built in functions
+# https://unix.stackexchange.com/a/85250
+
 # set default variables
   TTY_COLOR=''
   GNU_TTY_COLOR=''
   GNU_PRESERVE=''
-  GNU_i=''
   GNU=''
 
 # detect if tty color support is installed
-  if (`command -v dircolors >/dev/null 2>&1`); then
+  if command -v dircolors > /dev/null 2>&1; then
     TTY_COLOR=' --color=tty'
     GNU_TTY_COLOR=' --color=tty'
   fi
 
 # detect if gnu coreutils are installed
-  if (`command -v gdircolors >/dev/null 2>&1`); then
+  if command gdircolors > /dev/null 2>&1; then
     GNU_TTY_COLOR=' --color=tty'
     GNU_PRESERVE=' --preserve-root'
-    GNU_i=' -i'
     GNU='g'
   fi
-
-# ls
-  alias ls=$GNU'ls -F'$GNU_TTY_COLOR
-  alias lsa=$GNU'ls -lah'$GNU_TTY_COLOR
-  alias l=$GNU'ls -la'$GNU_TTY_COLOR
-  alias ll=$GNU'ls -l'$GNU_TTY_COLOR
-  alias la=$GNU'ls -lA --group-directories-first'$GNU_TTY_COLOR
-  alias ls.=$GNU'ls -d .*'$GNU_TTY_COLOR
 
 # directory management
   alias ..='cd ..'
   alias cd..='cd ..'
 
-# confirmation on mass file changes
-  alias mv=$GNU'mv'$GNU_i
-  alias cp=$GNU'cp'$GNU_i
-  alias ln=$GNU'ln'$GNU_i
+# set aliases which are dependent on the gnu version binaries
+  if [ -z "$GNU" ]; then
+    # ls aliases
+    alias ls=$(which ls)' -F'$GNU_TTY_COLOR
+    alias lsa=$(which ls)' -lah'$GNU_TTY_COLOR
+    alias l=$(which ls)' -la'$GNU_TTY_COLOR
+    alias ll=$(which ls)' -l'$GNU_TTY_COLOR
+    alias la=$(which ls)' -lA --group-directories-first'$GNU_TTY_COLOR
+    alias ls.=$(which ls)' -d .*'$GNU_TTY_COLOR
+    # add confrimation on mass changes
+    alias mv=$(which mv)' -i'
+    alias cp=$(which cp)' -i'
+    # ln on openbsd doesn't have -i option, set only on linux systems
+    if [[ `uname` == 'Linux' ]]; then
+      alias ln=$(which ln)' -i'
+    fi
+    # prompt if changing perms or owner on more than 3 files at a time
+    alias chown=$(which chown)$GNU_PRESERVE
+    alias chmod=$(which chmod)$GNU_PRESERVE
+    alias chgrp=$(which chgrp)$GNU_PRESERVE
+  else
+    # ls aliases
+    alias ls=$(which gls)' -F'$GNU_TTY_COLOR
+    alias lsa=$(which gls)' -lah'$GNU_TTY_COLOR
+    alias l=$(which gls)' -la'$GNU_TTY_COLOR
+    alias ll=$(which gls)' -l'$GNU_TTY_COLOR
+    alias la=$(which gls)' -lA --group-directories-first'$GNU_TTY_COLOR
+    alias ls.=$(which gls)' -d .*'$GNU_TTY_COLOR
+    # promt on mass file changes
+    alias mv=$(which gmv)' -i'
+    alias cp=$(which gcp)' -i'
+    alias ln=$(which gln)' -i'
+    # prompt if changing perms or owner on more than 3 files at a time
+    alias chown=$(which gchown)$GNU_PRESERVE
+    alias chmod=$(which gchmod)$GNU_PRESERVE
+    alias chgrp=$(which gchgrp)$GNU_PRESERVE
+  fi
 
-# prompt if changing perms or owner on more than 3 files at a time
-  alias chown=$GNU'chown'$GNU_PRESERVE
-  alias chmod=$GNU'chmod'$GNU_PRESERVE
-  alias chgrp=$GNU'chgrp'$GNU_PRESERVE
+# grep options
+  # detect if gnu grep is installed, otherwise alias regular names
+  if command -v ggrep > /dev/null 2>&1; then
+    alias grep=$(which ggrep)' --color=tty'
+    alias fgrep=$(which gfgrep)' --color=tty'
+    alias egrep=$(which gegrep)' --color=tty'
+  elif [[ `uname` == 'Linux' ]]; then
+    alias grep=$(which grep)$TTY_COLOR
+    alias fgrep=$(which fgrep)$TTY_COLOR
+    alias egrep=$(which egrep)$TTY_COLOR
+  fi
 
 # ssh
   # alias ssh to change the term to xterm before the session starts
@@ -52,34 +85,38 @@
   alias who='who -u'
 
 # htop
-  if (`command -v htop >/dev/null 2>&1`); then
-    alias top='htop'
+  if command -v htop > /dev/null 2>&1; then
+    alias top=$(which htop)
   fi
 
 # diff
-  if (`command -v colordiff >/dev/null 2>&1`); then
-    alias diff='colordiff'
+  if command -v colordiff > /dev/null 2>&1; then
+    alias diff=$(which colordiff)
   fi
 
 # wget
   # enable continue of downloads
-  alias wget='wget -c'
+  if command -v wget > /dev/null 2>&1; then
+    alias wget=$(which wget)' -c'
+  fi
 
 # tar
-  alias untar='tar -zxvf'
+  if command -v tar > /dev/null 2>&1; then
+    alias untar=$(which tar)' -zxvf'
+  fi
 
 # most
-  if (`command -v most >/dev/null 2>&1`); then
-    export PAGER='most'
+  if command -v most > /dev/null 2>&1; then
+    export PAGER=$(which most)
   fi
 
 # rsync
-  if (`command -v rsync >/dev/null 2>&1`); then
-    alias rsync-copy='rsync -avzh --progress --stats'
-    alias rsync-mirror='rsync -avzh --progress --stats --delete-before --delete-excluded'
-    alias rsync-move='rsync -avzh --progress --stats --remove-source-files'
-    alias rsync-synchronize='rsync -avzuh --progress --stats --delete'
-    alias rsync-update='rsync -avzuh --progress --stats'
+  if command -v rsync > /dev/null 2>&1; then
+    alias rsync-copy=$(which rsync)' -avzh --progress --stats'
+    alias rsync-mirror=$(which rsync)' -avzh --progress --stats --delete-before --delete-excluded'
+    alias rsync-move=$(which rsync)' -avzh --progress --stats --remove-source-files'
+    alias rsync-synchronize=$(which rsync)' -avzuh --progress --stats --delete'
+    alias rsync-update=$(which rsync)' -avzuh --progress --stats'
   fi
 
 # cli to online paste aliases
@@ -87,21 +124,9 @@
   alias clibin='curl -q -F "clbin=<-" https://clbin.com; echo Append "?hl" to the url for highlighting'
   alias pastebin=clibin
 
-# grep
-  alias grep=$GNU'grep'$GNU_TTY_COLOR
-  alias fgrep=$GNU'fgrep'$GNU_TTY_COLOR
-  alias egrep=$GNU'egrep'$GNU_TTY_COLOR
-
-# grep detect if gnu grep is installed
-  if (`command -v ggrep >/dev/null 2>&1`); then
-    alias grep='ggrep --color=tty'
-    alias fgrep='gfgrep --color=tty'
-    alias egrep='gegrep --color=tty'
-  elif [[ `uname` == 'Linux' ]]; then
-    alias grep='grep'$TTY_COLOR
-    alias fgrep='fgrep'$TTY_COLOR
-    alias egrep='egrep'$TTY_COLOR
-  fi
+# grep output for lines without common comment
+  alias nocomments='grep -Evi '\''^( *)(#|$|;|//|--|rem|::|\"|\|\|)'\'''
+  alias comments='grep -Ei '\''^(#|;|//|--|rem|::|\"|\|\|)'\'''
 
 # dmesg
   if [[ `uname` == 'Linux' ]]; then
@@ -110,13 +135,13 @@
 
 # disk, partition, folder and file usage commands
   # disk usage in the current directory
-  alias usagedirectory='du -ch 2> /dev/null | tail -1'
+  alias usagedirectory=$(which du)' -ch 2> /dev/null | tail -1'
 
   # total disk usage
-  alias usagedisk='df -hl --total | tail -1'
+  alias usagedisk=$(which df)' -hl --total | tail -1'
 
   # individual partition usages without the temporary memory values
-  alias usagepartition='df -hlT --exclude-type=tmpfs --exclude-type=devtmpfs'
+  alias usagepartition=$(which df)' -hlT --exclude-type=tmpfs --exclude-type=devtmpfs'
 
   # largest folders within current dir
   function usagehogs {
@@ -127,5 +152,4 @@
   unset TTY_COLOR
   unset GNU_TTY_COLOR
   unset GNU_PRESERVE
-  unset GNU_i
   unset GNU
