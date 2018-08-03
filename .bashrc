@@ -9,7 +9,8 @@ case $- in
       *) return;;
 esac
 
-for bashrc_config in "${HOME}/.bash/"*[^~] ; do
+# source all numbered files in ${HOME}/.bash/
+for bashrc_config in "${HOME}/.bash/"[0-9]*[^~] ; do
     source "${bashrc_config}"
 done
 
