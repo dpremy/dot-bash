@@ -38,14 +38,14 @@ true
   alias cd..="cd .."
 
 # set aliases which are dependent on the gnu version binaries
-  if [ -z "$GNU" ]; then
+  if [ -z "${GNU}" ]; then
     # ls aliases
-    alias ls="$(which ls)"' -F '"$GNU_TTY_COLOR"
-    alias lsa="$(which ls)"' -lah '"$GNU_TTY_COLOR"
-    alias l="$(which ls)"' -la '"$GNU_TTY_COLOR"
-    alias ll="$(which ls)"' -l '"$GNU_TTY_COLOR"
-    alias la="$(which ls)"' -lA --group-directories-first '"$GNU_TTY_COLOR"
-    alias ls.="$(which ls)"' -d .* '"$GNU_TTY_COLOR"
+    alias ls="$(which ls)"' -F '"${GNU_TTY_COLOR}"
+    alias lsa="$(which ls)"' -lah '"${GNU_TTY_COLOR}"
+    alias l="$(which ls)"' -la '"${GNU_TTY_COLOR}"
+    alias ll="$(which ls)"' -l '"${GNU_TTY_COLOR}"
+    alias la="$(which ls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
+    alias ls.="$(which ls)"' -d .* '"${GNU_TTY_COLOR}"
     # add confrimation on mass changes
     alias mv="$(which mv)"' -i'
     alias cp="$(which cp)"' -i'
@@ -54,25 +54,25 @@ true
       alias ln="$(which ln)"' -i'
     fi
     # prompt if changing perms or owner on more than 3 files at a time
-    alias chown="$(which chown)"' '"$GNU_PRESERVE"
-    alias chmod="$(which chmod)"' '"$GNU_PRESERVE"
-    alias chgrp="$(which chgrp)"' '"$GNU_PRESERVE"
+    alias chown="$(which chown)"' '"${GNU_PRESERVE}"
+    alias chmod="$(which chmod)"' '"${GNU_PRESERVE}"
+    alias chgrp="$(which chgrp)"' '"${GNU_PRESERVE}"
   else
     # ls aliases
-    alias ls="$(which gls)"' -F '"$GNU_TTY_COLOR"
-    alias lsa="$(which gls)"' -lah '"$GNU_TTY_COLOR"
-    alias l="$(which gls)"' -la '"$GNU_TTY_COLOR"
-    alias ll="$(which gls)"' -l '"$GNU_TTY_COLOR"
-    alias la="$(which gls)"' -lA --group-directories-first '"$GNU_TTY_COLOR"
-    alias ls.="$(which gls)"' -d .* '"$GNU_TTY_COLOR"
+    alias ls="$(which gls)"' -F '"${GNU_TTY_COLOR}"
+    alias lsa="$(which gls)"' -lah '"${GNU_TTY_COLOR}"
+    alias l="$(which gls)"' -la '"${GNU_TTY_COLOR}"
+    alias ll="$(which gls)"' -l '"${GNU_TTY_COLOR}"
+    alias la="$(which gls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
+    alias ls.="$(which gls)"' -d .* '"${GNU_TTY_COLOR}"
     # promt on mass file changes
     alias mv="$(which gmv)"' -i'
     alias cp="$(which gcp)"' -i'
     alias ln="$(which gln)"' -i'
     # prompt if changing perms or owner on more than 3 files at a time
-    alias chown="$(which gchown)"' '"$GNU_PRESERVE"
-    alias chmod="$(which gchmod)"' '"$GNU_PRESERVE"
-    alias chgrp="$(which gchgrp)"' '"$GNU_PRESERVE"
+    alias chown="$(which gchown)"' '"${GNU_PRESERVE}"
+    alias chmod="$(which gchmod)"' '"${GNU_PRESERVE}"
+    alias chgrp="$(which gchgrp)"' '"${GNU_PRESERVE}"
   fi
 
 # grep options
@@ -82,9 +82,9 @@ true
     alias fgrep="$(which gfgrep)"' --color=tty'
     alias egrep="$(which gegrep)"' --color=tty'
   elif [[ $(uname) == 'Linux' ]]; then
-    alias grep="$(which grep)"' '"$TTY_COLOR"
-    alias fgrep="$(which fgrep)"' '"$TTY_COLOR"
-    alias egrep="$(which egrep)"' '"$TTY_COLOR"
+    alias grep="$(which grep)"' '"${TTY_COLOR}"
+    alias fgrep="$(which fgrep)"' '"${TTY_COLOR}"
+    alias egrep="$(which egrep)"' '"${TTY_COLOR}"
   fi
 
 # ssh

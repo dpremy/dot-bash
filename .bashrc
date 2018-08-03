@@ -9,11 +9,11 @@ case $- in
       *) return;;
 esac
 
-for bashrc_config in ~/.bash/*[^~] ; do
-    source "$bashrc_config"
+for bashrc_config in "${HOME}/.bash/"*[^~] ; do
+    source "${bashrc_config}"
 done
 
-test -f ~/.bashrc_local && source ~/.bashrc_local
+test -f "${HOME}/.bashrc_local" && source "${HOME}/.bashrc_local"
 
 #disable debugging
 set +x
