@@ -18,13 +18,13 @@ fi
 
 # source all numbered files in ${HOME}/.bash/
 for bashrc_config in "${HOME}/.bash/"[0-9]*[^~] ; do
-  log_debug ".bashrc is sourcing ${bashrc_config}"
+  log_info ".bashrc sourcing ${bashrc_config}"
   source "${bashrc_config}"
 done
 
 # source ${HOME}/.bashrc_local if found
 if [ -f "${HOME}/.bashrc_local" ];then
-  log_debug ".bashrc is sourcing ${HOME}/.bashrc_local"
+  log_info ".bashrc sourcing ${HOME}/.bashrc_local"
   source "${HOME}/.bashrc_local"
 else
   log_debug ".bashrc did not find ${HOME}/.bashrc_local, skipping"
