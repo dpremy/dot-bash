@@ -160,6 +160,108 @@ true
     du -k ./* 2>/dev/null | sort -nr | awk '{ if($1>=1024*1024) {size=$1/1024/1024; unit="G"} else if($1>=1024) {size=$1/1024; unit="M"} else {size=$1; unit="K"}; if(size<10) format="%.1f%s"; else format="%.0f%s"; res=sprintf(format,size,unit); printf "%-8s %s\n",res,$2 }'
   }
 
+# monitoring function which tracks a file or folder for size changes over a period of time.
+  function monitor_size() {
+    # create "sub" functions which are used, and created, only by monitor_size when called
+
+    # get the current size of the item to be monitored in a byte format for comparison
+    function _get_size() {
+      # check if the item to be monitored is a file
+      if [[ -f "${1}" ]]
+      then
+        # get the current size of the file in bytes
+        # shellcheck disable=2012
+        ls -l "${1}" | awk '{ print $5 }'
+      # check if the item to be monitored is a folder
+      elif [[ -d "${1}" ]]
+      then
+        # get the current size of the folder in kilobytes
+        du -s "${1}/" 2>/dev/null | awk '{ print $1 }'
+      fi
+    }
+
+    # get the current size of the item to be monitored in human readable format
+    function _get_size_human() {
+      # check if the item to be monitored is a file
+      if [[ -f "${1}" ]]
+      then
+        # get the current size of the file in human readable format
+        # shellcheck disable=2012
+        ls -lh "${1}" | awk '{ print $5 }'
+      # check if the item to be monitored is a folder
+      elif [[ -d "${1}" ]]
+      then
+        # get the current size of the folder in human readable format
+        du -sh "${1}/" 2>/dev/null | awk '{ print $1 }'
+      fi
+    }
+
+    # find if the item to be monitored is a file or folder
+    function _get_path_type() {
+      # check if the item to be monitored is a file
+      if [[ -f "${1}" ]]
+      then
+        echo "file"
+      # check if the item to be monitored is a folder
+      elif [[ -d "${1}" ]]
+      then
+        echo "folder"
+      else
+        echo "error"
+      fi
+    }
+
+    # verify that at least one parameter was passed to the function
+    if [[ "${#}" == "0" ]]
+    then
+      # usage message if 0 parameters were passed
+      echo "Usage: monitor_size [[file/folder path]] [[sleep_duration]]"
+      echo "Monitors a file or folder for change in size over time."
+      echo ""
+      echo "  The path is the file or folder to monitor for change."
+      echo "  Optional: The sleep duration is seconds between checking for change, default is 300 seconds."
+    # check if the path type function returns an error for some reason; possibly a bad path
+    elif [[ $(_get_path_type "${1}") == "error" ]]
+    then
+      echo "file/folder not found..."
+    else
+      # use bash parameter expansion to take second parameter, if passed, and save it to __watch_sleep, otherwise default to 300 seconds
+      local __watch_sleep=${2:-300}
+
+      # init the size variables so we can compare them later on
+      local __watch_last_size=0
+      local __watch_new_size=0
+
+      # get current file/folder size
+      __watch_new_size=$(_get_size "${1}")
+
+      # output what is going to be checked and how often
+      echo "Checking $(_get_path_type "${1}") for change every ${__watch_sleep} seconds..."
+      echo ""
+      echo "Time       Size"
+
+      # enter a while loop until the last and new size are the same
+      while [[ "${__watch_last_size}" != "${__watch_new_size}" ]]
+      do
+        __watch_last_size=${__watch_new_size}
+        # output formatted message with date, time, and file size in human readable format
+        echo "$(date +"%R:%S")   $(_get_size_human "${1}")"
+        sleep "${__watch_sleep}"
+        # get file size after the sleep
+        __watch_new_size=$(_get_size "${1}")
+      done
+
+      # the size must have not changed during the last interval so we will output the last message
+      echo ""
+      echo "$(_get_path_type "${1}") has remained the same size for the last ${__watch_sleep} seconds..."
+    fi
+
+    # remove "sub" functions from the environment
+    unset -f _get_size
+    unset -f _get_size_human
+    unset -f _get_path_type
+  }
+
 # unset variables
   unset TTY_COLOR
   unset GNU_TTY_COLOR
