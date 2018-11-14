@@ -1,28 +1,25 @@
 #!/usr/bin/env bash
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-  HISTCONTROL=ignoreboth
+# configure bash history
+  HISTFILE=~/.bash_history          #
+  HISTSIZE=5000                     # number of previous commands to remember in history file
+  HISTFILESIZE=5500                 # max number of lines the history file should contain
+  HISTTIMEFORMAT="%d.%m.%y %H:%M "  # write time stamps to history file
+  HISTCONTROL=ignoreboth            # lines which begin with a space or already in the history are not appended to the history
+  shopt -s histappend               # append to history file rather than overwriting it
+  shopt -s cmdhist                  # saves all lines of a multiple-line command in the same history entry
+  shopt -s histverify               # history substiutions are loaded into the readline editing buffer for further modification
+  log_debug "00-options bash history options set"
 
-# append to the history file, don't overwrite it
-  shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-  HISTFILE=~/.bash_history
-  HISTSIZE=5000
-  HISTFILESIZE=5000
-  HISTTIMEFORMAT="%d.%m.%y %H:%M "
-   "00-options bash history options set"
+# misc options
+  shopt -s checkwinsize             # checks window size after each command and updates the LINES and COLUMNS values if necessary
+  log_debug "00-options bash misc options set"
 
 # utf8 locale support
   export LANG=en_US.UTF-8
   export LC_CTYPE=en_US.UTF-8
   export LC_ALL=en_US.UTF-8
   log_debug "00-options utf8 support enabled"
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-  shopt -s checkwinsize
 
 # disable software flow control so C-s doesn't enable terminal scroll lock, in turn requiring C-q
   stty -ixon
