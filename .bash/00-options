@@ -11,7 +11,8 @@
   HISTFILE=~/.bash_history
   HISTSIZE=5000
   HISTFILESIZE=5000
-  log_debug "00-options bash history options set"
+  HISTTIMEFORMAT="%d.%m.%y %H:%M "
+   "00-options bash history options set"
 
 # utf8 locale support
   export LANG=en_US.UTF-8
