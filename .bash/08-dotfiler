@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
 if [ -e ${HOME}/.files/bin ]; then
-   export PATH=~/.files/bin:${PATH}
+  echo ${PATH} | grep -q "${HOME}/.files/bin"
+  if [ $? -ne 0 ]; then
+    export PATH=~/.files/bin:${PATH}
+  fi
 fi
