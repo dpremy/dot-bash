@@ -1,0 +1,48 @@
+# readline completion options
+
+# include distro inputrc file
+$include /etc/inputrc
+
+# do not bell on tab completion
+set bell-style none
+
+# show autocompletions one page at a time
+set page-completions on
+
+# make tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+#if there are more than 200 possible completions ask to show them all
+set completion-query-items 200
+
+# list all matches in case multiple possible autocompletions exist
+set show-all-if-ambiguous on
+
+# list all matches in case multiple possible autocompletions exist without any possible partial completion
+set show-all-if-unmodified on
+
+# show extra file information when listing completions
+set visible-stats on
+
+# display the common prefix in a set of possible completions using a different color
+set colored-completion-prefix on
+
+# display possible completions using different colors to indicate file type
+set colored-stats on
+
+# completed directory names have a slash appended
+set mark-directories on
+
+# do not insert characters from the completion in the word being completed
+set skip-completed-text on
+
+# when tab is pressed show already typed portion of file names as '...'
+set completion-prefix-display-length 2
+
+# enable utf-7 input and output
+set input-meta on
+set output-meta on
+
+# search autocomplete history with up and down arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward]]"
