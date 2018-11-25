@@ -8,7 +8,7 @@
   HISTCONTROL=ignoreboth            # lines which begin with a space or already in the history are not appended to the history
   shopt -s histappend               # append to history file rather than overwriting it
   shopt -s cmdhist                  # saves all lines of a multiple-line command in the same history entry
-  shopt -s histverify               # history substiutions are loaded into the readline editing buffer for further modification
+  shopt -s histverify               # history substitutions are loaded into the readline editing buffer for further modification
   log_debug "00-options bash history options set"
 
 # misc options

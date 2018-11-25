@@ -46,7 +46,7 @@ true
     alias ll="$('which' ls)"' -l '"${GNU_TTY_COLOR}"
     alias la="$('which' ls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
     alias ls.="$('which' ls)"' -d .* '"${GNU_TTY_COLOR}"
-    # add confrimation on mass changes
+    # add confirmation on mass changes
     alias mv="$('which' mv)"' -i'
     alias cp="$('which' cp)"' -i'
     # ln on openbsd doesn't have -i option, set only on linux systems
@@ -65,7 +65,7 @@ true
     alias ll="$('which' gls)"' -l '"${GNU_TTY_COLOR}"
     alias la="$('which' gls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
     alias ls.="$('which' gls)"' -d .* '"${GNU_TTY_COLOR}"
-    # promt on mass file changes
+    # prompt on mass file changes
     alias mv="$('which' gmv)"' -i'
     alias cp="$('which' gcp)"' -i'
     alias ln="$('which' gln)"' -i'
@@ -187,7 +187,7 @@ true
       then
         # get the current size of the file in human readable format
         # shellcheck disable=2012
-        ls -lh "${1}" | awk '{ print $5 }'
+        ls -lh "${1}" | awk '{ print $5 }'s
       # check if the item to be monitored is a folder
       elif [[ -d "${1}" ]]
       then
