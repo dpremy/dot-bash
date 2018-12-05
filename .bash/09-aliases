@@ -24,6 +24,7 @@ true
   if command -v dircolors > /dev/null 2>&1; then
     TTY_COLOR="--color=tty"
     GNU_TTY_COLOR="--color=tty"
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   fi
 
 # detect if gnu coreutils are installed
@@ -31,6 +32,7 @@ true
     GNU_TTY_COLOR="--color=tty"
     GNU_PRESERVE="--preserve-root"
     GNU="g"
+    test -r ~/.dircolors && eval "$(gdircolors -b ~/.dircolors)" || eval "$(gdircolors -b)"
   fi
 
 # directory management
@@ -78,9 +80,9 @@ true
 # grep options
   # detect if gnu grep is installed, otherwise alias regular names
   if command -v ggrep > /dev/null 2>&1; then
-    alias grep="$('which' ggrep)"' --color=tty'
-    alias fgrep="$('which' gfgrep)"' --color=tty'
-    alias egrep="$('which' gegrep)"' --color=tty'
+    alias grep="$('which' ggrep)"' '"${TTY_COLOR}"
+    alias fgrep="$('which' gfgrep)"' '"${TTY_COLOR}"
+    alias egrep="$('which' gegrep)"' '"${TTY_COLOR}"
   elif [[ $(uname) == 'Linux' ]]; then
     alias grep="$('which' grep)"' '"${TTY_COLOR}"
     alias fgrep="$('which' fgrep)"' '"${TTY_COLOR}"
