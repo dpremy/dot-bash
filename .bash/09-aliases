@@ -80,9 +80,9 @@ true
 # grep options
   # detect if gnu grep is installed, otherwise alias regular names
   if command -v ggrep > /dev/null 2>&1; then
-    alias grep="$('which' ggrep)"' '"${TTY_COLOR}"
-    alias fgrep="$('which' gfgrep)"' '"${TTY_COLOR}"
-    alias egrep="$('which' gegrep)"' '"${TTY_COLOR}"
+    alias grep="$('which' ggrep)"' '"${GNU_TTY_COLOR}"
+    alias fgrep="$('which' gfgrep)"' '"${GNU_TTY_COLOR}"
+    alias egrep="$('which' gegrep)"' '"${GNU_TTY_COLOR}"
   elif [[ $(uname) == 'Linux' ]]; then
     alias grep="$('which' grep)"' '"${TTY_COLOR}"
     alias fgrep="$('which' fgrep)"' '"${TTY_COLOR}"
