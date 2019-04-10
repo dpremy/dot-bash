@@ -213,15 +213,15 @@ true
       fi
     }
 
-    # verify that at least one parameter was passed to the function
-    if [[ "${#}" == "0" ]]
+    # verify that one or two parameters were passed to the function
+    if [[ $(expr ${#} == "0") -eq 1 || $(expr ${#} \> "2") -eq 1 ]]
     then
-      # usage message if 0 parameters were passed
-      echo "Usage: monitor_size [[file/folder path]] [[sleep_duration]]"
-      echo "Monitors a file or folder for change in size over time."
+      # usage message if incorrect parameters were passed
+      echo "Usage: monitor_size path [sleep_duration]"
+      echo "Monitors a file or folder for changes in size over time."
       echo ""
       echo "  The path is the file or folder to monitor for change."
-      echo "  Optional: The sleep duration is seconds between checking for change, default is 300 seconds."
+      echo "  Optional: The sleep duration, in seconds, between checking for changes in size. Default is 300 seconds."
     # check if the path type function returns an error for some reason; possibly a bad path
     elif [[ $(_get_path_type "${1}") == "error" ]]
     then
@@ -231,8 +231,8 @@ true
       local __watch_sleep=${2:-300}
 
       # init the size variables so we can compare them later on
-      local __watch_last_size=0
-      local __watch_new_size=0
+      local __watch_last_size=-1
+      local __watch_new_size=-1
 
       # get current file/folder size
       __watch_new_size=$(_get_size "${1}")
