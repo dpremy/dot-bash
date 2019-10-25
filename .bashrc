@@ -7,7 +7,7 @@ case $- in
 esac
 
 # source debugging functions
-test -f "${HOME}/.bash/debug" && source "${HOME}/.bash/debug"
+test -x "${HOME}/.bash/debug" && source "${HOME}/.bash/debug"
 
 # create dummy log functions to prevent errors if ${HOME}/.bash/debug isn't sourced properly
 if ! type log_debug &>/dev/null; then
@@ -18,14 +18,16 @@ fi
 
 # source all numbered files in ${HOME}/.bash/
 for bashrc_config in "${HOME}/.bash/"[0-9]*[^~] ; do
-  log_info ".bashrc sourcing ${bashrc_config}"
-  source "${bashrc_config}"
+  if [ -x "${bashrc_config}" ]; then
+    log_info ".bashrc sourcing ${bashrc_config}"
+    source "${bashrc_config}"
+  fi
 done
 
-# source ${HOME}/.bashrc_local if found
-if [ -f "${HOME}/.bashrc_local" ];then
-  log_info ".bashrc sourcing ${HOME}/.bashrc_local"
-  source "${HOME}/.bashrc_local"
-else
-  log_debug ".bashrc did not find ${HOME}/.bashrc_local, skipping"
-fi
+# source all ${HOME}/.bashrc_local files if found
+for bashrc_local in ${HOME}/.bashrc_local* ; do
+  if [ -x "${bashrc_local}" ]; then
+    log_info ".bashrc sourcing ${bashrc_local}"
+    source "${bashrc_local}"
+  fi
+done
