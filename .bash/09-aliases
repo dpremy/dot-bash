@@ -157,6 +157,11 @@ true
     alias dmesg='dmesg -Lauto -T'
   fi
 
+# nicer ps output
+  psgrep() {
+    ps -auxf | grep -v grep | grep "${@}" -i
+  }
+
 # disk, partition, folder and file usage commands
   # disk usage in the current directory
   alias usagedirectory="$('which' du)"' -ch 2> /dev/null | tail -1'
