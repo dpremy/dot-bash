@@ -162,6 +162,18 @@ true
     ps -auxf | grep -v grep | grep "${@}" -i
   }
 
+# convert ssh2 files to ssh-rsa format
+  ssh22ssh-rsa() {
+    # convert the ssh2 public key to ssh-rsa format
+    local __key=$(ssh-keygen -i -f "${@}")
+
+    # get the comment from the ssh2 public key file
+    local __comment=$(grep Comment "${@}" | awk -F'"' '{ print $2 }')
+
+    # echo out the ssh-rsa line with comment
+    echo ${__key} ${__comment}
+  }
+
 # disk, partition, folder and file usage commands
   # disk usage in the current directory
   alias usagedirectory="$('which' du)"' -ch 2> /dev/null | tail -1'
