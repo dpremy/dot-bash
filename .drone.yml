@@ -1,0 +1,19 @@
+---
+kind: pipeline
+type: docker
+name: shellcheck-bash
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: shellcheck-bash
+  image: alpine:latest
+  pull: if-not-exists
+  commands:
+  - apk add --no-cache shellcheck
+  - shellcheck -S warning *
+  - shellcheck -S warning .bash/*
+  when:
+    branch: master
