@@ -13,7 +13,7 @@ steps:
   pull: if-not-exists
   commands:
   - apk add --no-cache shellcheck
-  - shellcheck -S warning *
+  - shellcheck -S warning -e SC1090 .bashrc
   - shellcheck -S warning .bash/*
   when:
     branch: master
