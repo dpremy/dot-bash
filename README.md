@@ -1,12 +1,22 @@
-Dotfiler: bash config and shell aliases
-======================================
+# dpremy bash config files and shell aliases
 
-This repository contains dotfiles and configs to use with bash.  
-It's purpose to be used as a repository for dotfiler.
+## Purpose
 
-For convenience, don't copy these files into you homedir. Instead,  
-go and install dotfiler, then clone this repository, using  
-`dot add https://gitlab.com/dpremy/dot-bash.git`  
-command and run `dot update` to make all necessary symlinks.
+This repository contains the dotfiles and configs I use with bash. It is desinged to work with [dotfiler](https://github.com/svetlyak40wt/dotfiler), but can easily be used without it.
 
-dotfiler can be found at https://github.com/svetlyak40wt/dotfiler
+## Installation
+
+```shell
+# if you don't already have dotfiler, clone it to your home directory
+git clone -q https://github.com/svetlyak40wt/dotfiler ~/.files
+
+# add this repo to dotfiler
+~/.files/bin/dot add https://gitlab.com/dpremy/dot-bash.git
+
+# update the symlinks in your home directory
+~/.files/bin/dot --skip-pull update
+```
+
+## Usage
+
+The files in [.bash](.bash) may be worth reviewing.
