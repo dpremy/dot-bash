@@ -114,12 +114,6 @@ true
     alias untar="$('which' tar)"' -zxvf'
   fi
 
-# most
-  if command -v most > /dev/null 2>&1; then
-    PAGER="$('which' most)"
-    export PAGER
-  fi
-
 # rsync
   if command -v rsync > /dev/null 2>&1; then
     alias rsync-copy="$('which' rsync)"' -avzh --progress --stats'
