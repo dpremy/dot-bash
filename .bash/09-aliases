@@ -160,11 +160,14 @@ true
 
 # convert ssh2 files to ssh-rsa format
   ssh22ssh-rsa() {
+    local __key
+    local __comment
+    
     # convert the ssh2 public key to ssh-rsa format
-    local __key=$(ssh-keygen -i -f "${@}")
+    __key=$(ssh-keygen -i -f "${@}")
 
     # get the comment from the ssh2 public key file
-    local __comment=$(grep Comment "${@}" | awk -F'"' '{ print $2 }')
+    __comment=$(grep Comment "${@}" | awk -F'"' '{ print $2 }')
 
     # echo out the ssh-rsa line with comment
     echo ${__key} ${__comment}
