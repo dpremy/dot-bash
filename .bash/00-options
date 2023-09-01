@@ -26,6 +26,10 @@
   EDITOR="$(command -v nvim 2>/dev/null || command -v vim 2>/dev/null || command -v vi)"
   SUDO_EDITOR="$(command -v nvim 2>/dev/null || command -v vim 2>/dev/null || command -v vi)"
   PAGER="$(command -v most 2>/dev/null || command -v less 2>/dev/null || command -v more)"
+  export VISUAL
+  export EDITOR
+  export SUDO_EDITOR
+  export PAGER
 
 # disable software flow control so C-s doesn't enable terminal scroll lock, in turn requiring C-q
   stty -ixon
