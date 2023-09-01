@@ -9,10 +9,9 @@ platform:
 
 steps:
 - name: shellcheck-bash
-  image: alpine:latest
+  image: koalaman/shellcheck-alpine:stable
   pull: if-not-exists
   commands:
-  - apk add --no-cache shellcheck
   - shellcheck -S warning -e SC1090 .bashrc
   - shellcheck -S warning .bash/*
   when:
