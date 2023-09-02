@@ -13,9 +13,3 @@ steps:
   commands:
   - shellcheck --shell bash -S warning .bashrc
   - shellcheck --shell bash -S warning .bash/*
-trigger:
-  event:
-  - cron
-  - push
-  cron:
-  - monthly
