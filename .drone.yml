@@ -1,15 +1,19 @@
 ---
 kind: pipeline
 type: docker
-name: shellcheck
+name: dot-bash
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-- name: shellcheck
+- name: shellcheck-bashrc
   image: koalaman/shellcheck-alpine:stable
   commands:
   - shellcheck --shell bash -S warning .bashrc
+
+- name: shellcheck-bash
+  image: koalaman/shellcheck-alpine:stable
+  commands:
   - shellcheck --shell bash -S warning .bash/*
