@@ -20,6 +20,7 @@ fi
 for bashrc_config in "${HOME}/.bash/"[0-9]*[^~] ; do
   if [ -x "${bashrc_config}" ]; then
     log_info ".bashrc sourcing ${bashrc_config}"
+    # shellcheck disable=SC1090
     source "${bashrc_config}"
   fi
 done
@@ -28,6 +29,7 @@ done
 for bashrc_local in ${HOME}/.bashrc_local* ; do
   if [ -x "${bashrc_local}" ]; then
     log_info ".bashrc sourcing ${bashrc_local}"
+    # shellcheck disable=SC1090
     source "${bashrc_local}"
   fi
 done
