@@ -1,18 +1,23 @@
 ---
 kind: pipeline
 type: docker
-name: shellcheck-bash
+name: shellcheck
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-- name: shellcheck-bash
+- name: shellcheck
   image: koalaman/shellcheck-alpine:stable
   pull: if-not-exists
   commands:
-  - shellcheck -S warning -e SC1090 .bashrc
-  - shellcheck -S warning .bash/*
+  - shellcheck --shell bash -S warning .bashrc
+  - shellcheck --shell bash -S warning .bash/*
   when:
     branch: master
+    event:
+      - cron
+      target:
+        include:
+        - monthly
