@@ -5,6 +5,8 @@ true
 
 # advice on using which, whence, and other shell built in functions
 # https://unix.stackexchange.com/a/85250
+# https://stackoverflow.com/q/37056192
+# https://stackoverflow.com/q/592620
 
 # set default variables
   TTY_COLOR=""
