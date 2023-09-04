@@ -90,8 +90,8 @@ true
   fi
 
 # who
-  # show user idle time
-  alias who='who -u'
+  # show headers, system boot, and user idle
+  alias who='who -Hbu'
 
 # htop
   if command -v htop > /dev/null 2>&1; then
