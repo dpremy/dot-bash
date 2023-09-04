@@ -9,10 +9,10 @@ true
 # https://stackoverflow.com/q/592620
 
 # set default variables
-  local TTY_COLOR=""
-  local GNU_TTY_COLOR=""
-  local GNU_PRESERVE=""
-  local GNU=""
+  TTY_COLOR=""
+  GNU_TTY_COLOR=""
+  GNU_PRESERVE=""
+  GNU=""
 
 # create aliases to sudo and doas so that aliases can be run via sudo and doas
   if command -v sudo > /dev/null 2>&1; then
@@ -293,3 +293,9 @@ true
     unset -f _get_size_human
     unset -f _get_path_type
   }
+
+# unset variables
+  unset TTY_COLOR
+  unset GNU_TTY_COLOR
+  unset GNU_PRESERVE
+  unset GNU
