@@ -217,7 +217,7 @@ true
       then
         # get the current size of the file in human readable format
         # shellcheck disable=2012
-        ls -lh "${1}" | awk '{ print $5 }'s
+        ls -lh "${1}" | awk '{ print $5 }'
       # check if the item to be monitored is a folder
       elif [[ -d "${1}" ]]
       then
