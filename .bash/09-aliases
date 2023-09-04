@@ -44,51 +44,51 @@ true
 # set aliases which are dependent on the gnu version binaries
   if [ -z "${GNU}" ]; then
     # ls aliases
-    alias ls="$('which' ls)"' -F '"${GNU_TTY_COLOR}"
-    alias lsa="$('which' ls)"' -lah '"${GNU_TTY_COLOR}"
-    alias l="$('which' ls)"' -la '"${GNU_TTY_COLOR}"
-    alias ll="$('which' ls)"' -l '"${GNU_TTY_COLOR}"
-    alias la="$('which' ls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
-    alias ls.="$('which' ls)"' -d .* '"${GNU_TTY_COLOR}"
+    alias ls="ls -F ${GNU_TTY_COLOR}"
+    alias lsa="ls -lah ${GNU_TTY_COLOR}"
+    alias l="ls -la ${GNU_TTY_COLOR}"
+    alias ll="ls -l ${GNU_TTY_COLOR}"
+    alias la="ls -lA --group-directories-first ${GNU_TTY_COLOR}"
+    alias ls.="ls -d .* ${GNU_TTY_COLOR}"
     # add confirmation on mass changes
-    alias mv="$('which' mv)"' -i'
-    alias cp="$('which' cp)"' -i'
+    alias mv="mv -i"
+    alias cp="cp -i"
     # ln on openbsd doesn't have -i option, set only on linux systems
     if [[ $(uname) == 'Linux' ]]; then
-      alias ln="$('which' ln)"' -i'
+      alias ln="ln -i"
     fi
     # prompt if changing perms or owner on more than 3 files at a time
-    alias chown="$('which' chown)"' '"${GNU_PRESERVE}"
-    alias chmod="$('which' chmod)"' '"${GNU_PRESERVE}"
-    alias chgrp="$('which' chgrp)"' '"${GNU_PRESERVE}"
+    alias chown="chown ${GNU_PRESERVE}"
+    alias chmod="chmod ${GNU_PRESERVE}"
+    alias chgrp="chgrp ${GNU_PRESERVE}"
   else
     # ls aliases
-    alias ls="$('which' gls)"' -F '"${GNU_TTY_COLOR}"
-    alias lsa="$('which' gls)"' -lah '"${GNU_TTY_COLOR}"
-    alias l="$('which' gls)"' -la '"${GNU_TTY_COLOR}"
-    alias ll="$('which' gls)"' -l '"${GNU_TTY_COLOR}"
-    alias la="$('which' gls)"' -lA --group-directories-first '"${GNU_TTY_COLOR}"
-    alias ls.="$('which' gls)"' -d .* '"${GNU_TTY_COLOR}"
+    alias ls="gls -F ${GNU_TTY_COLOR}"
+    alias lsa="gls -lah ${GNU_TTY_COLOR}"
+    alias l="gls -la ${GNU_TTY_COLOR}"
+    alias ll="gls -l ${GNU_TTY_COLOR}"
+    alias la="gls -lA --group-directories-first ${GNU_TTY_COLOR}"
+    alias ls.="gls -d .* ${GNU_TTY_COLOR}"
     # prompt on mass file changes
-    alias mv="$('which' gmv)"' -i'
-    alias cp="$('which' gcp)"' -i'
-    alias ln="$('which' gln)"' -i'
+    alias mv="gmv -i"
+    alias cp="gcp -i"
+    alias ln="gln -i"
     # prompt if changing perms or owner on more than 3 files at a time
-    alias chown="$('which' gchown)"' '"${GNU_PRESERVE}"
-    alias chmod="$('which' gchmod)"' '"${GNU_PRESERVE}"
-    alias chgrp="$('which' gchgrp)"' '"${GNU_PRESERVE}"
+    alias chown="gchown ${GNU_PRESERVE}"
+    alias chmod="gchmod ${GNU_PRESERVE}"
+    alias chgrp="gchgrp ${GNU_PRESERVE}"
   fi
 
 # grep options
   # detect if gnu grep is installed, otherwise alias regular names
   if command -v ggrep > /dev/null 2>&1; then
-    alias grep="$('which' ggrep)"' '"${GNU_TTY_COLOR}"
-    alias fgrep="$('which' gfgrep)"' '"${GNU_TTY_COLOR}"
-    alias egrep="$('which' gegrep)"' '"${GNU_TTY_COLOR}"
+    alias grep="ggrep ${GNU_TTY_COLOR}"
+    alias fgrep="gfgrep ${GNU_TTY_COLOR}"
+    alias egrep="gegrep ${GNU_TTY_COLOR}"
   elif [[ $(uname) == 'Linux' ]]; then
-    alias grep="$('which' grep)"' '"${TTY_COLOR}"
-    alias fgrep="$('which' fgrep)"' '"${TTY_COLOR}"
-    alias egrep="$('which' egrep)"' '"${TTY_COLOR}"
+    alias grep="grep ${TTY_COLOR}"
+    alias fgrep="fgrep ${TTY_COLOR}"
+    alias egrep="egrep ${TTY_COLOR}"
   fi
 
 # who
@@ -157,6 +157,8 @@ true
 
 # nicer ps output
   psgrep() {
+    # use ps, even though shellcheck prefers pgrep, as it may not be available
+    # shellcheck disable=2009
     ps -auxf | grep -v grep | grep "${@}" -i
   }
 
