@@ -95,32 +95,32 @@ true
 
 # htop
   if command -v htop > /dev/null 2>&1; then
-    alias top="$('which' htop)"
+    alias top="htop"
   fi
 
 # diff
   if command -v colordiff > /dev/null 2>&1; then
-    alias diff="$('which' colordiff)"
+    alias diff="colordiff"
   fi
 
 # wget
   # enable continue of downloads
   if command -v wget > /dev/null 2>&1; then
-    alias wget="$('which' wget)"' -c'
+    alias wget="wget -c"
   fi
 
 # tar
   if command -v tar > /dev/null 2>&1; then
-    alias untar="$('which' tar)"' -zxvf'
+    alias untar="tar -zxvf"
   fi
 
 # rsync
   if command -v rsync > /dev/null 2>&1; then
-    alias rsync-copy="$('which' rsync)"' -avzh --progress --stats'
-    alias rsync-mirror="$('which' rsync)"' -avzh --progress --stats --delete-before --delete-excluded'
-    alias rsync-move="$('which' rsync)"' -avzh --progress --stats --remove-source-files'
-    alias rsync-synchronize="$('which' rsync)"' -avzuh --progress --stats --delete'
-    alias rsync-update="$('which' rsync)"' -avzuh --progress --stats'
+    alias rsync-copy="rsync -avzh --progress --stats"
+    alias rsync-mirror="rsync -avzh --progress --stats --delete-before --delete-excluded"
+    alias rsync-move="rsync -avzh --progress --stats --remove-source-files"
+    alias rsync-synchronize="rsync -avzuh --progress --stats --delete"
+    alias rsync-update="rsync -avzuh --progress --stats"
   fi
 
 # terminal to online paste
@@ -162,7 +162,7 @@ true
   ssh22ssh-rsa() {
     local __key
     local __comment
-    
+
     # convert the ssh2 public key to ssh-rsa format
     __key=$(ssh-keygen -i -f "${@}")
 
@@ -170,18 +170,18 @@ true
     __comment=$(grep Comment "${@}" | awk -F'"' '{ print $2 }')
 
     # echo out the ssh-rsa line with comment
-    echo ${__key} ${__comment}
+    echo "${__key} ${__comment}"
   }
 
 # disk, partition, folder and file usage commands
   # disk usage in the current directory
-  alias usagedirectory="$('which' du)"' -ch 2> /dev/null | tail -1'
+  alias usagedirectory="du -ch 2> /dev/null | tail -1"
 
   # total disk usage
-  alias usagedisk="$('which' df)"' -hl --total | tail -1'
+  alias usagedisk="df -hl --total | tail -1"
 
   # individual partition usages without the temporary memory values
-  alias usagepartition="$('which' df)"' -hlT --exclude-type=tmpfs --exclude-type=devtmpfs'
+  alias usagepartition="df -hlT --exclude-type=tmpfs --exclude-type=devtmpfs"
 
   # largest folders within current dir
   function usagehogs {
