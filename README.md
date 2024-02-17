@@ -18,6 +18,17 @@ git clone -q https://gitlab.com/dpremy/dot-bash.git ~/.files/dot-bash
 stow -d ~/.files/ -t ~/ -S dot-bash
 ```
 
+### NixOS
+
+NixOS may not load ~/.bashrc due to a variety of issues related to shells and which files are loaded when. See [here](https://discourse.nixos.org/t/bash-not-sourcing-bashrc/) for more detail on this issue.
+
+The easiest fix is to likely create `~/.bash_profile` with the following content:
+
+```bash
+# ~/.bash_profile
+[[ $- == *i* && -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
+```
+
 ## Usage
 
 The files in [.bash](.bash) may be worth reviewing.
