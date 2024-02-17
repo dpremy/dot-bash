@@ -162,6 +162,11 @@ true
     ps -auxf | grep -v grep | grep "${@}" -i
   }
 
+# zoxide for a smarter cd command
+  if command -v zoxide > /dev/null 2>&1; then
+    eval "$(zoxide init --cmd cd bash)"
+  fi
+
 # convert ssh2 files to ssh-rsa format
   ssh22ssh-rsa() {
     local __key
