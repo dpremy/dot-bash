@@ -79,6 +79,11 @@ true
     alias chgrp="gchgrp ${GNU_PRESERVE}"
   fi
 
+# history alias which uses fzf for easier searching
+  if command -v fzf > /dev/null 2>&1; then
+    alias hist="history | fzf --tac --tiebreak index -m"
+  fi
+
 # grep options
   # detect if gnu grep is installed, otherwise alias regular names
   if command -v ggrep > /dev/null 2>&1; then
