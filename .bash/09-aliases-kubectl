@@ -78,6 +78,11 @@ if command -v kubectl > /dev/null 2>&1; then
   # additional aliases
   alias krore='kubectl rollout restart'
 
+  # setup kubectl autocomplete, as well as with the k alias
+  source <(kubectl completion bash)
+  complete -o default -F __start_kubectl k
+fi
+
   if command -v fzf > /dev/null 2>&1 && command -v findpod > /dev/null 2>&1; then
     # based on https://github.com/aviadlevy/dotfiles
     # https://github.com/thecasualcoder/kube-fzf
