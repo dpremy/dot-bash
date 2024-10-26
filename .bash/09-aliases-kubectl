@@ -76,6 +76,8 @@ if command -v kubectl > /dev/null 2>&1; then
   alias kgsts='kubectl get sts'
 
   # additional aliases
+  alias kgpvc='kubectl get pvc'
+  alias kdpvc='kubectl describe pvc'
   alias krore='kubectl rollout restart'
 
   # setup kubectl autocomplete, as well as with the k alias
