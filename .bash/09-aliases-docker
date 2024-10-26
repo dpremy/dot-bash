@@ -1,0 +1,43 @@
+if command -v docker > /dev/null 2>&1; then
+  # based on alias format found at https://github.com/aviadlevy/dotfiles
+  alias dk='docker'
+  alias dkrun='docker run -it'
+  alias dkex='docker exec -it'
+  alias dklo='docker logs -f'
+  alias dkrm='docker container rm'
+  alias dkcontapru='docker container prune'
+  alias dkrmi='docker image rm'
+  alias dkimgpru='docker image prune'
+  alias dkkill='docker kill'
+  alias dknetls='docker network ls'
+  alias dknetcon='docker network connect'
+  alias dknetcre='docker network create'
+  alias dknetdis='docker network disconnect'
+  alias dknetins='docker network inspect'
+  alias dknetllus='docker network prune'
+  alias dknetrm='docker network rm'
+  alias dkps='docker ps'
+  alias dkpul='docker pull'
+  alias dkren='docker rename'
+  alias dkres='docker restart'
+  alias dksea='docker search'
+  alias dkstats='docker stats'
+  alias dkstop='docker stop'
+  alias dktop='docker top'
+
+  # search docker hub and return 1000 tags for a given image
+  if command -v jq > /dev/null 2>&1; then
+    dktags() {
+      local image="${1}"
+      curl -s -S "https://registry.hub.docker.com/v2/repositories/library/${image}/tags?page_size=1000" \
+        | jq '."results"[]["name"]' \
+        | sort --version-sort
+    }
+  fi
+
+  # setup docker autocomplete, as well as with the dk alias
+  source <(docker completion bash)
+  complete -o default -F _docker dk
+fi
+
+fi
