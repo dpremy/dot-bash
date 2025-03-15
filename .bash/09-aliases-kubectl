@@ -80,7 +80,10 @@ if command -v kubectl > /dev/null 2>&1; then
   alias kdpvc='kubectl describe pvc'
   alias kgds='kubectl get daemonsets'
   alias kdds='kubectl describe daemonsets'
+  alias keds='kubectl edit daemonsets'
   alias krore='kubectl rollout restart'
+  alias kesvc='kubectl edit service'
+  alias kecm='kubectl edit configmap'
 
   # setup kubectl autocomplete, as well as with the k alias
   source <(kubectl completion bash)
