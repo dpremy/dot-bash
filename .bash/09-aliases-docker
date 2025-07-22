@@ -36,6 +36,8 @@ if command -v docker > /dev/null 2>&1; then
   fi
 
   # setup docker autocomplete, as well as with the dk alias
-  source <(docker completion bash)
-  complete -o default -F _docker dk
+  if command -v docker completion bash > /dev/null 2>&1; then
+    source <(docker completion bash)
+    complete -o default -F _docker dk
+  fi
 fi

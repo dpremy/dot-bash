@@ -82,7 +82,9 @@ true
 # fzf based aliases and functions
   if command -v fzf > /dev/null 2>&1; then
     # enable fzf key bindings for bash
-    eval "$(fzf --bash)"
+    if command fzf --bash > /dev/null 2>&1; then
+      eval "$(fzf --bash)"
+    fi
 
     # history alias which uses fzf for easier searching
     alias hist="history | fzf --tac --scheme=history --multi"
